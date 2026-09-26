@@ -19,6 +19,7 @@ import { SectionHeading } from '../components/SectionHeading'
 import { StoreBadges } from '../components/StoreBadges'
 import { getCvUrl } from '../content/site'
 import { useSiteContent } from '../content/useSiteContent'
+import { useCatalogCounters } from '../hooks/useCatalogCounters'
 import { useTranslation } from '../i18n/useTranslation'
 
 const socialIcons = {
@@ -34,6 +35,11 @@ export function HomePage() {
   const highlighted = projects.filter((project) => project.size === 'large' && !project.featured)
   const otherProjects = projects.filter((project) => !project.featured && project.size !== 'large')
   const [copied, setCopied] = useState(false)
+  const counters = useCatalogCounters()
+  const numberFormatter = new Intl.NumberFormat(language === 'es' ? 'es-AR' : 'en-US')
+  const featuredImpact = counters
+    ? t.postMorfi.impactWithLiveStats(numberFormatter.format(counters.users), numberFormatter.format(counters.reviews))
+    : featured.impact
 
   async function copyEmail() {
     try {
@@ -99,7 +105,7 @@ export function HomePage() {
               <img src={postMorfi.logo} alt="" aria-hidden="true" width="2536" height="1115" />
             </h2>
             <p className="featured-lead">{featured.description}</p>
-            <p className="featured-impact">{featured.impact}</p>
+            <p className="featured-impact">{featuredImpact}</p>
             <div className="featured-links">
               <Link className="text-link" to={featured.detailPath!}>{t.home.viewFullCase} <ArrowRight aria-hidden="true" /></Link>
               <a className="text-link muted-link" href={featured.liveUrl} target="_blank" rel="noreferrer">{t.home.visitProduct} <ArrowUpRight aria-hidden="true" /></a>

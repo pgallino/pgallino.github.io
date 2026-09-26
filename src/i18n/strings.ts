@@ -71,6 +71,8 @@ const strings = {
       caseMetaStatusValue: 'En producción',
       caseIndex01: '01 / El producto',
       caseIntroHeading: 'Recordar dónde comiste debería ser tan fácil como elegir adónde ir.',
+      impactWithLiveStats: (users: string, reviews: string) =>
+        `Hoy lo usan ${users} personas, con ${reviews} reseñas cargadas.`,
       metricsAriaLabel: 'Métricas de PostMorfi',
       caseIndex02: '02 / Funcionalidades',
       featuresHeading: 'Un solo lugar para todo el recorrido foodie.',
@@ -185,6 +187,8 @@ const strings = {
       caseMetaStatusValue: 'In production',
       caseIndex01: '01 / The product',
       caseIntroHeading: 'Remembering where you ate should be as easy as choosing where to go.',
+      impactWithLiveStats: (users: string, reviews: string) =>
+        `Today it's used by ${users} people, with ${reviews} reviews logged.`,
       metricsAriaLabel: 'PostMorfi metrics',
       caseIndex02: '02 / Features',
       featuresHeading: 'One place for the whole foodie journey.',
