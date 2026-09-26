@@ -415,16 +415,19 @@ button.store-badge-link {
   position: fixed;
   inset: 0;
   z-index: 100;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 20px;
   background: rgba(10, 13, 11, 0.78);
   backdrop-filter: blur(2px);
+  overflow-y: auto;
 }
 
 .waitlist-modal {
   position: relative;
   width: min(100%, 380px);
+  flex-shrink: 0;
   padding: 32px;
   color: var(--text);
   background: var(--bg);
@@ -743,6 +746,10 @@ button.store-badge-link {
   .email-link { font-size: .92rem; }
   .site-footer { grid-template-columns: 1fr; gap: 12px; }
   .site-footer p:last-child { grid-column: auto; }
+  .site-footer .store-legal { margin-top: 0; }
   .postmorfi-brand-heading-hero { width: min(100%, 520px); }
   .store-badges { gap: 20px; }
+  .waitlist-modal { padding: 28px 22px; }
+  .waitlist-modal form { flex-direction: column; }
+  .waitlist-modal form button { justify-content: center; padding: 12px 16px; }
 }
