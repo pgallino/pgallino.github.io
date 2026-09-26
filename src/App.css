@@ -589,11 +589,11 @@ button.store-badge-link {
 .contact-section h2 { max-width: 650px; margin: 0; font-size: clamp(3.4rem, 6vw, 6.4rem); font-weight: 600; line-height: .95; letter-spacing: -.06em; }
 .contact-panel { align-self: end; }
 .contact-panel > p { max-width: 520px; margin: 0 0 30px; color: var(--muted); font-size: 1.08rem; line-height: 1.65; }
-.email-link { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 20px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font-size: clamp(1rem, 2vw, 1.45rem); }
+.email-link { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 20px 0; border: none; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: none; color: inherit; font: inherit; font-size: clamp(1rem, 2vw, 1.45rem); cursor: pointer; text-align: left; }
 .email-link:hover { color: var(--accent); }
 .social-links { margin-top: 24px; }
-.social-links a { display: inline-flex; align-items: center; gap: 8px; padding: 9px 11px; color: var(--muted); border: 1px solid var(--line); font-size: .74rem; }
-.social-links a:hover { color: var(--text); border-color: #59635b; }
+.social-links a, .social-links button { display: inline-flex; align-items: center; gap: 8px; padding: 9px 11px; color: var(--muted); background: none; border: 1px solid var(--line); font: inherit; font-size: .74rem; cursor: pointer; }
+.social-links a:hover, .social-links button:hover { color: var(--text); border-color: #59635b; }
 .social-links svg { width: 15px; height: 15px; }
 
 .site-footer { min-height: 110px; display: grid; grid-template-columns: .3fr 1fr auto; gap: 30px; align-items: center; border-top: 1px solid var(--line); color: var(--muted); font-size: .72rem; }

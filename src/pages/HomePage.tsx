@@ -1,8 +1,11 @@
+import { useState } from 'react'
 import {
   ArrowDownRight,
   ArrowRight,
   ArrowUpRight,
+  Check,
   Code2,
+  Copy,
   Download,
   Mail,
   Network,
@@ -19,13 +22,30 @@ import { cvUrl, personal, postMorfi, projects, skills, timeline } from '../conte
 const socialIcons = {
   GitHub: Code2,
   LinkedIn: Network,
-  Email: Mail,
 }
 
 export function HomePage() {
   const featured = projects.find((project) => project.featured)!
   const highlighted = projects.filter((project) => project.size === 'large' && !project.featured)
   const otherProjects = projects.filter((project) => !project.featured && project.size !== 'large')
+  const [copied, setCopied] = useState(false)
+
+  async function copyEmail() {
+    try {
+      await navigator.clipboard.writeText(personal.email)
+    } catch {
+      const textarea = document.createElement('textarea')
+      textarea.value = personal.email
+      textarea.style.position = 'fixed'
+      textarea.style.opacity = '0'
+      document.body.appendChild(textarea)
+      textarea.select()
+      document.execCommand('copy')
+      document.body.removeChild(textarea)
+    }
+    setCopied(true)
+    window.setTimeout(() => setCopied(false), 2000)
+  }
 
   return (
     <>
@@ -205,9 +225,18 @@ export function HomePage() {
           </div>
           <div className="contact-panel">
             <p>Estoy en Buenos Aires y abierto a conversar sobre productos, software y desafíos de ingeniería.</p>
-            <a className="email-link" href={`mailto:${personal.email}`}>{personal.email} <ArrowUpRight aria-hidden="true" /></a>
+            <button type="button" className="email-link" onClick={copyEmail}>
+              {personal.email} {copied ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
+            </button>
             <div className="social-links">
               {personal.socials.map((social) => {
+                if (social.label === 'Email') {
+                  return (
+                    <button key={social.label} type="button" onClick={copyEmail}>
+                      <Mail aria-hidden="true" />{copied ? 'Copiado' : 'Email'}
+                    </button>
+                  )
+                }
                 const Icon = socialIcons[social.label as keyof typeof socialIcons]
                 return (
                   <a key={social.label} href={social.href} target={social.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">
