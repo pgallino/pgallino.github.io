@@ -38,7 +38,12 @@ export function HomePage() {
   const counters = useCatalogCounters()
   const numberFormatter = new Intl.NumberFormat(language === 'es' ? 'es-AR' : 'en-US')
   const featuredImpact = counters
-    ? t.postMorfi.impactWithLiveStats(numberFormatter.format(counters.users), numberFormatter.format(counters.reviews))
+    ? t.postMorfi.impactWithLiveStats(
+        numberFormatter.format(counters.users),
+        numberFormatter.format(counters.reviews),
+        numberFormatter.format(counters.restaurants),
+        numberFormatter.format(counters.photos),
+      )
     : featured.impact
 
   async function copyEmail() {
