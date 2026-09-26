@@ -5,11 +5,20 @@ import { PhoneShowcase } from '../components/PhoneShowcase'
 import { Reveal } from '../components/Reveal'
 import { StoreBadges } from '../components/StoreBadges'
 import { useSiteContent } from '../content/useSiteContent'
+import { useCatalogCounters } from '../hooks/useCatalogCounters'
 import { useTranslation } from '../i18n/useTranslation'
 
 export function PostMorfiPage() {
-  const { t } = useTranslation()
+  const { t, language } = useTranslation()
   const { postMorfi } = useSiteContent()
+  const counters = useCatalogCounters()
+
+  const metrics = counters
+    ? postMorfi.metrics.map((metric, index) => {
+        const liveValue = [counters.users, counters.reviews, counters.restaurants, counters.photos][index]
+        return { ...metric, value: new Intl.NumberFormat(language === 'es' ? 'es-AR' : 'en-US').format(liveValue) }
+      })
+    : postMorfi.metrics
 
   return (
     <article className="case-study">
@@ -50,7 +59,7 @@ export function PostMorfiPage() {
 
       <Reveal>
         <section className="metrics" aria-label={t.postMorfi.metricsAriaLabel}>
-          {postMorfi.metrics.map((metric) => (
+          {metrics.map((metric) => (
             <div key={metric.label}>
               <strong>{metric.value}</strong>
               <span>{metric.label}</span>
