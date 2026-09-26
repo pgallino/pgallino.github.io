@@ -466,6 +466,18 @@ button.store-badge-link {
   white-space: nowrap;
 }
 
+.waitlist-modal form button:disabled { opacity: .6; cursor: default; }
+.waitlist-modal input:disabled { opacity: .6; }
+
+.waitlist-error {
+  margin: 14px 0 0;
+  color: #e07a6b;
+  font-size: .82rem;
+  line-height: 1.5;
+}
+
+.waitlist-error a { color: inherit; text-decoration: underline; }
+
 .phone-showcase {
   min-width: 0;
 }

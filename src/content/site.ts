@@ -189,6 +189,7 @@ export const postMorfi = {
       status: 'Acceso anticipado',
       label: 'Android',
       badge: '/images/store-badges/google-play-trimmed.png',
+      waitlistAccessKey: 'db2acda6-87cd-46ef-ba60-8e5d93e456e3',
     },
   },
   screenshots: [

@@ -1,15 +1,17 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { ArrowRight, X } from 'lucide-react'
-import { personal, postMorfi } from '../content/site'
+import { postMorfi } from '../content/site'
 
 type StoreBadgesProps = {
   compact?: boolean
 }
 
+type WaitlistStatus = 'idle' | 'sending' | 'sent' | 'error'
+
 export function StoreBadges({ compact = false }: StoreBadgesProps) {
   const [open, setOpen] = useState(false)
   const [email, setEmail] = useState('')
-  const [sent, setSent] = useState(false)
+  const [status, setStatus] = useState<WaitlistStatus>('idle')
 
   useEffect(() => {
     if (!open) return
@@ -26,16 +28,30 @@ export function StoreBadges({ compact = false }: StoreBadgesProps) {
 
   function closeModal() {
     setOpen(false)
-    setSent(false)
+    setStatus('idle')
     setEmail('')
   }
 
-  function handleWaitlistSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleWaitlistSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    const subject = 'Acceso anticipado a PostMorfi para Android'
-    const body = `Quiero sumarme al acceso anticipado de PostMorfi para Android.\n\nMi email de contacto: ${email}`
-    window.location.href = `mailto:${personal.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-    setSent(true)
+    setStatus('sending')
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: postMorfi.stores.android.waitlistAccessKey,
+          subject: 'Acceso anticipado a PostMorfi para Android',
+          from_name: 'PostMorfi · Acceso anticipado Android',
+          email,
+          message: 'Quiere sumarse al acceso anticipado de PostMorfi para Android.',
+        }),
+      })
+      const data = await response.json()
+      setStatus(data.success ? 'sent' : 'error')
+    } catch {
+      setStatus('error')
+    }
   }
 
   const androidArtwork = (
@@ -110,10 +126,10 @@ export function StoreBadges({ compact = false }: StoreBadgesProps) {
             <button type="button" className="waitlist-close" aria-label="Cerrar" onClick={closeModal}>
               <X aria-hidden="true" />
             </button>
-            {sent ? (
+            {status === 'sent' ? (
               <>
-                <h3>Se abrió tu correo</h3>
-                <p>Solo tenés que enviar el mensaje que se armó automáticamente y listo.</p>
+                <h3>¡Listo!</h3>
+                <p>Guardamos tu email, te aviso apenas esté disponible PostMorfi para Android.</p>
               </>
             ) : (
               <>
@@ -129,11 +145,18 @@ export function StoreBadges({ compact = false }: StoreBadgesProps) {
                     placeholder="tu@email.com"
                     value={email}
                     onChange={(event) => setEmail(event.target.value)}
+                    disabled={status === 'sending'}
                   />
-                  <button type="submit">
-                    Avisarme <ArrowRight aria-hidden="true" />
+                  <button type="submit" disabled={status === 'sending'}>
+                    {status === 'sending' ? 'Enviando…' : <>Avisarme <ArrowRight aria-hidden="true" /></>}
                   </button>
                 </form>
+                {status === 'error' && (
+                  <p className="waitlist-error">
+                    Hubo un error. Probá de nuevo o escribime directo a{' '}
+                    <a href="mailto:ing.pgallino@gmail.com">ing.pgallino@gmail.com</a>.
+                  </p>
+                )}
               </>
             )}
           </div>
