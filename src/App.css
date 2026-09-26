@@ -50,6 +50,26 @@
 .text-link:hover,
 .back-link:hover { color: var(--accent); }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.lang-toggle {
+  height: 40px;
+  padding: 0 16px;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--line);
+  font: .78rem ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: .04em;
+  transition: color .2s ease, border-color .2s ease;
+}
+
+.lang-toggle:hover,
+.lang-toggle:focus-visible { color: var(--accent); border-color: var(--accent); }
+
 .menu-toggle {
   display: none;
   width: 44px;

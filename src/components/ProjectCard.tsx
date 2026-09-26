@@ -1,8 +1,11 @@
 import { ArrowUpRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import type { Project } from '../content/site'
+import { useTranslation } from '../i18n/useTranslation'
 
 export function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const { t } = useTranslation()
+
   const body = (
     <div>
       <p className="project-eyebrow">{project.eyebrow}</p>
@@ -12,14 +15,14 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
   )
 
   const stackList = (
-    <ul aria-label={`Tecnologías y áreas de ${project.title}`}>
+    <ul aria-label={t.projectCard.techAndAreasAriaLabel(project.title)}>
       {project.stack.map((item) => <li key={item}>{item}</li>)}
     </ul>
   )
 
   if (project.detailPath) {
     return (
-      <Link className="project-card" to={project.detailPath} aria-label={`Ver detalle de ${project.title}`}>
+      <Link className="project-card" to={project.detailPath} aria-label={t.projectCard.viewDetailAriaLabel(project.title)}>
         <div className="project-card-top">
           <span className="project-number">0{index + 1}</span>
           <ArrowUpRight aria-hidden="true" />
@@ -39,10 +42,10 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
           {stackList}
           <div className="project-card-links">
             <a className="text-link" href={project.liveUrl} target="_blank" rel="noreferrer">
-              Ver proyecto <ArrowUpRight aria-hidden="true" />
+              {t.projectCard.viewProject} <ArrowUpRight aria-hidden="true" />
             </a>
             <a className="text-link muted-link" href={project.repository} target="_blank" rel="noreferrer">
-              Ver código <ArrowUpRight aria-hidden="true" />
+              {t.projectCard.viewCode} <ArrowUpRight aria-hidden="true" />
             </a>
           </div>
         </div>
@@ -56,7 +59,7 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
       href={project.liveUrl ?? project.repository}
       target="_blank"
       rel="noreferrer"
-      aria-label={`Ver ${project.title}${project.liveUrl ? '' : ' en GitHub'}`}
+      aria-label={t.projectCard.viewProjectAriaLabel(project.title, Boolean(project.liveUrl))}
     >
       <div className="project-card-top">
         <span className="project-number">0{index + 1}</span>

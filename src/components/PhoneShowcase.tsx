@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import type { PointerEvent as ReactPointerEvent } from 'react'
 import type { PhoneScreenshot } from '../content/site'
+import { useTranslation } from '../i18n/useTranslation'
 
 type PhoneShowcaseProps = {
   screenshots: PhoneScreenshot[]
@@ -8,6 +9,7 @@ type PhoneShowcaseProps = {
 }
 
 export function PhoneShowcase({ screenshots, variant = 'case' }: PhoneShowcaseProps) {
+  const { t } = useTranslation()
   const trackRef = useRef<HTMLUListElement>(null)
   const drag = useRef({ active: false, startX: 0, startScroll: 0, pointerX: 0, frame: 0 })
 
@@ -48,7 +50,7 @@ export function PhoneShowcase({ screenshots, variant = 'case' }: PhoneShowcasePr
     <div
       className={`phone-showcase phone-showcase--${variant}`}
       role="region"
-      aria-label="Capturas de la aplicación móvil de PostMorfi"
+      aria-label={t.phoneShowcase.screenshotsAriaLabel}
     >
       <ul
         className="phone-showcase__track"

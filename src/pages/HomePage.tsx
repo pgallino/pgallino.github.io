@@ -17,7 +17,9 @@ import { ProjectCard } from '../components/ProjectCard'
 import { Reveal } from '../components/Reveal'
 import { SectionHeading } from '../components/SectionHeading'
 import { StoreBadges } from '../components/StoreBadges'
-import { cvUrl, personal, postMorfi, projects, skills, timeline } from '../content/site'
+import { getCvUrl } from '../content/site'
+import { useSiteContent } from '../content/useSiteContent'
+import { useTranslation } from '../i18n/useTranslation'
 
 const socialIcons = {
   GitHub: Code2,
@@ -25,6 +27,9 @@ const socialIcons = {
 }
 
 export function HomePage() {
+  const { t, language } = useTranslation()
+  const { personal, postMorfi, projects, skills, timeline } = useSiteContent()
+  const cvUrl = getCvUrl(language)
   const featured = projects.find((project) => project.featured)!
   const highlighted = projects.filter((project) => project.size === 'large' && !project.featured)
   const otherProjects = projects.filter((project) => !project.featured && project.size !== 'large')
@@ -49,32 +54,29 @@ export function HomePage() {
 
   return (
     <>
-      <PageMeta
-        title="Pedro Gallino · Ingeniero en Informática"
-        description="Portfolio de Pedro Gallino: ingeniería de software, producto, sistemas distribuidos y PostMorfi."
-      />
+      <PageMeta title={t.home.metaTitle} description={t.home.metaDescription} />
 
       <section className="hero" id="inicio" aria-labelledby="hero-title">
         <div className="hero-copy">
           <p className="eyebrow"><span /> {personal.role} · {personal.location}</p>
           <h1 id="hero-title">
-            Pedro Gallino, Ingeniero en Informática.
+            {t.home.heroTitle}
           </h1>
           <p className="hero-intro">
-            Construyo aplicaciones pensando en que la gente las use y las disfrute, no solo en que funcionen.
+            {t.home.heroIntro}
           </p>
           <div className="hero-actions">
             <a className="button button-primary" href="#proyectos">
-              Ver proyectos <ArrowDownRight aria-hidden="true" />
+              {t.home.viewProjects} <ArrowDownRight aria-hidden="true" />
             </a>
             <a className="button button-secondary" href={cvUrl} download={!personal.cv.externalUrl} target={personal.cv.externalUrl ? '_blank' : undefined} rel="noreferrer">
-              Descargar CV <Download aria-hidden="true" />
+              {t.home.downloadCv} <Download aria-hidden="true" />
             </a>
           </div>
         </div>
 
-        <div className="hero-timeline" aria-label="Resumen de trayectoria">
-          <img className="hero-timeline-avatar" src={personal.avatar} alt="Pedro Gallino" width="64" height="64" />
+        <div className="hero-timeline" aria-label={t.home.careerSummaryAriaLabel}>
+          <img className="hero-timeline-avatar" src={personal.avatar} alt={personal.name} width="64" height="64" />
           <ol>
             {timeline.map((item) => (
               <li key={item.title}>
@@ -90,8 +92,8 @@ export function HomePage() {
       <Reveal>
         <section className="featured-project" id="proyectos" aria-labelledby="postmorfi-title">
           <div className="featured-copy">
-            <p className="eyebrow"><span /> Proyecto destacado · 2026</p>
-            <p className="display-label">Caso / 01</p>
+            <p className="eyebrow"><span /> {t.home.featuredProjectEyebrow}</p>
+            <p className="display-label">{t.home.caseLabel(1)}</p>
             <h2 id="postmorfi-title" className="postmorfi-brand-heading postmorfi-brand-heading-featured">
               <span className="sr-only">{featured.title}</span>
               <img src={postMorfi.logo} alt="" aria-hidden="true" width="2536" height="1115" />
@@ -99,8 +101,8 @@ export function HomePage() {
             <p className="featured-lead">{featured.description}</p>
             <p className="featured-impact">{featured.impact}</p>
             <div className="featured-links">
-              <Link className="text-link" to={featured.detailPath!}>Ver caso completo <ArrowRight aria-hidden="true" /></Link>
-              <a className="text-link muted-link" href={featured.liveUrl} target="_blank" rel="noreferrer">Visitar producto <ArrowUpRight aria-hidden="true" /></a>
+              <Link className="text-link" to={featured.detailPath!}>{t.home.viewFullCase} <ArrowRight aria-hidden="true" /></Link>
+              <a className="text-link muted-link" href={featured.liveUrl} target="_blank" rel="noreferrer">{t.home.visitProduct} <ArrowUpRight aria-hidden="true" /></a>
             </div>
             <StoreBadges compact />
           </div>
@@ -113,7 +115,7 @@ export function HomePage() {
           <section className="featured-project case-project" aria-labelledby={`${project.slug}-title`}>
             <div className="featured-copy">
               <p className="eyebrow"><span /> {project.eyebrow}</p>
-              <p className="display-label">Caso / 0{caseIndex + 2}</p>
+              <p className="display-label">{t.home.caseLabel(caseIndex + 2)}</p>
               <h2 id={`${project.slug}-title`} className="case-project-title">{project.title}</h2>
               <p className="featured-lead">{project.description}</p>
               <p className="featured-impact">{project.impact}</p>
@@ -123,12 +125,12 @@ export function HomePage() {
               <div className="featured-links">
                 {project.liveUrl && (
                   <a className="text-link" href={project.liveUrl} target="_blank" rel="noreferrer">
-                    Ver proyecto <ArrowUpRight aria-hidden="true" />
+                    {t.home.viewProject} <ArrowUpRight aria-hidden="true" />
                   </a>
                 )}
                 {project.repository && (
                   <a className={`text-link${project.liveUrl ? ' muted-link' : ''}`} href={project.repository} target="_blank" rel="noreferrer">
-                    Ver código <ArrowUpRight aria-hidden="true" />
+                    {t.home.viewCode} <ArrowUpRight aria-hidden="true" />
                   </a>
                 )}
               </div>
@@ -138,7 +140,7 @@ export function HomePage() {
                 <div className="case-video">
                   <iframe
                     src={`https://www.youtube.com/embed/${project.videoId}`}
-                    title={`Video de ${project.title}`}
+                    title={t.home.videoTitle(project.title)}
                     loading="lazy"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
@@ -166,9 +168,9 @@ export function HomePage() {
         <Reveal>
           <SectionHeading
             index={String(highlighted.length + 2).padStart(2, '0')}
-            eyebrow="Seleccion de trabajos"
-            title="Proyectos académicos y personales."
-            description="Donde exploré redes, distribución, concurrencia y producto."
+            eyebrow={t.home.projectsSectionEyebrow}
+            title={t.home.projectsSectionTitle}
+            description={t.home.projectsSectionDescription}
           />
         </Reveal>
         <div className="projects-grid">
@@ -182,9 +184,9 @@ export function HomePage() {
         <Reveal>
           <SectionHeading
             index={String(highlighted.length + 3).padStart(2, '0')}
-            eyebrow="Trayectoria"
-            title="Trayectoria"
-            description="Experiencia profesional y formación académica, en orden cronológico."
+            eyebrow={t.home.timelineEyebrow}
+            title={t.home.timelineTitle}
+            description={t.home.timelineDescription}
           />
         </Reveal>
         <div className="timeline">
@@ -194,7 +196,9 @@ export function HomePage() {
                 <div className="timeline-marker"><span>0{index + 1}</span></div>
                 <p className="timeline-period">{item.period}</p>
                 <div className="timeline-copy">
-                  <span className={`timeline-type ${item.type}`}>{item.type === 'educacion' ? 'educación' : item.type}</span>
+                  <span className={`timeline-type ${item.type}`}>
+                    {item.type === 'educacion' ? t.home.timelineTypeEducacion : t.home.timelineTypeExperiencia}
+                  </span>
                   <h3>{item.title}</h3>
                   <h4>{item.place}</h4>
                   <p>{item.description}</p>
@@ -208,8 +212,8 @@ export function HomePage() {
       <Reveal>
         <section className="skills-band" aria-labelledby="skills-title">
           <div>
-            <p className="eyebrow"><span /> Herramientas</p>
-            <h2 id="skills-title">Stack y capacidades</h2>
+            <p className="eyebrow"><span /> {t.home.skillsEyebrow}</p>
+            <h2 id="skills-title">{t.home.skillsTitle}</h2>
           </div>
           <ul>
             {skills.map((skill) => <li key={skill}>{skill}</li>)}
@@ -220,11 +224,11 @@ export function HomePage() {
       <Reveal>
         <section className="contact-section" id="contacto" aria-labelledby="contact-title">
           <div>
-            <p className="eyebrow"><span /> Contacto</p>
-            <h2 id="contact-title">Contacto</h2>
+            <p className="eyebrow"><span /> {t.home.contactEyebrow}</p>
+            <h2 id="contact-title">{t.home.contactTitle}</h2>
           </div>
           <div className="contact-panel">
-            <p>Estoy en Buenos Aires y abierto a conversar sobre productos, software y desafíos de ingeniería.</p>
+            <p>{t.home.contactIntro}</p>
             <button type="button" className="email-link" onClick={copyEmail}>
               {personal.email} {copied ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
             </button>
@@ -233,7 +237,7 @@ export function HomePage() {
                 if (social.label === 'Email') {
                   return (
                     <button key={social.label} type="button" onClick={copyEmail}>
-                      <Mail aria-hidden="true" />{copied ? 'Copiado' : 'Email'}
+                      <Mail aria-hidden="true" />{copied ? t.home.emailCopied : t.home.emailLabel}
                     </button>
                   )
                 }
@@ -245,7 +249,7 @@ export function HomePage() {
                 )
               })}
               <a href={cvUrl} download={!personal.cv.externalUrl} target={personal.cv.externalUrl ? '_blank' : undefined} rel="noreferrer">
-                <Download aria-hidden="true" />CV
+                <Download aria-hidden="true" />{t.home.cvLabel}
               </a>
             </div>
           </div>

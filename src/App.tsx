@@ -1,7 +1,9 @@
 import { useEffect } from 'react'
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { Header } from './components/Header'
-import { personal } from './content/site'
+import { content } from './content/site'
+import { LanguageProvider } from './i18n/LanguageContext'
+import { useTranslation } from './i18n/useTranslation'
 import { HomePage } from './pages/HomePage'
 import { PostMorfiPage } from './pages/PostMorfiPage'
 import './App.css'
@@ -21,9 +23,12 @@ function ScrollManager() {
 }
 
 function Layout() {
+  const { t, language } = useTranslation()
+  const { personal } = content[language]
+
   return (
     <>
-      <a className="skip-link" href="#main-content">Saltar al contenido</a>
+      <a className="skip-link" href="#main-content">{t.layout.skipLink}</a>
       <div className="site-shell">
         <Header />
         <main id="main-content">
@@ -35,12 +40,9 @@ function Layout() {
         </main>
         <footer className="site-footer">
           <div className="wordmark">PG<span>.</span></div>
-          <p>Diseñado y desarrollado por {personal.name}.</p>
+          <p>{t.layout.footerBuilt(personal.name)}</p>
           <p>© {new Date().getFullYear()} · Buenos Aires</p>
-          <p className="store-legal">
-            Apple y el logotipo de Apple son marcas comerciales de Apple Inc. Google Play y el logotipo de
-            Google Play son marcas comerciales de Google LLC.
-          </p>
+          <p className="store-legal">{t.layout.storeLegal}</p>
         </footer>
       </div>
       <ScrollManager />
@@ -50,9 +52,11 @@ function Layout() {
 
 function App() {
   return (
-    <BrowserRouter>
-      <Layout />
-    </BrowserRouter>
+    <LanguageProvider>
+      <BrowserRouter>
+        <Layout />
+      </BrowserRouter>
+    </LanguageProvider>
   )
 }
 

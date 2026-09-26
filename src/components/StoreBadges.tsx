@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { ArrowRight, X } from 'lucide-react'
-import { postMorfi } from '../content/site'
+import { useSiteContent } from '../content/useSiteContent'
+import { useTranslation } from '../i18n/useTranslation'
 
 type StoreBadgesProps = {
   compact?: boolean
@@ -9,6 +10,8 @@ type StoreBadgesProps = {
 type WaitlistStatus = 'idle' | 'sending' | 'sent' | 'error'
 
 export function StoreBadges({ compact = false }: StoreBadgesProps) {
+  const { t } = useTranslation()
+  const { postMorfi } = useSiteContent()
   const [open, setOpen] = useState(false)
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<WaitlistStatus>('idle')
@@ -58,7 +61,7 @@ export function StoreBadges({ compact = false }: StoreBadgesProps) {
     <img
       className="store-badge-art store-badge-art--google"
       src={postMorfi.stores.android.badge}
-      alt="Disponible en Google Play"
+      alt={t.storeBadges.googlePlayAlt}
       width="135"
       height="40"
     />
@@ -67,7 +70,7 @@ export function StoreBadges({ compact = false }: StoreBadgesProps) {
   return (
     <div
       className={`store-badges${compact ? ' store-badges--compact' : ''}`}
-      aria-label="Disponibilidad de PostMorfi para celulares"
+      aria-label={t.storeBadges.availabilityAriaLabel}
     >
       <div className="store-badge-unit">
         <a
@@ -75,12 +78,12 @@ export function StoreBadges({ compact = false }: StoreBadgesProps) {
           href={postMorfi.stores.ios.href}
           target="_blank"
           rel="noreferrer"
-          aria-label="Descargar PostMorfi desde App Store; se abre en una pestaña nueva"
+          aria-label={t.storeBadges.appStoreDownloadAriaLabel}
         >
           <img
             className="store-badge-art store-badge-art--apple"
             src={postMorfi.stores.ios.badge}
-            alt="Descárgalo en el App Store"
+            alt={t.storeBadges.appStoreAlt}
             width="120"
             height="40"
           />
@@ -94,7 +97,7 @@ export function StoreBadges({ compact = false }: StoreBadgesProps) {
             href={postMorfi.stores.android.href}
             target="_blank"
             rel="noreferrer"
-            aria-label="Descargar PostMorfi desde Google Play; se abre en una pestaña nueva"
+            aria-label={t.storeBadges.googlePlayDownloadAriaLabel}
           >
             {androidArtwork}
           </a>
@@ -105,7 +108,7 @@ export function StoreBadges({ compact = false }: StoreBadgesProps) {
             type="button"
             className="store-badge-link"
             aria-haspopup="dialog"
-            aria-label="Sumarme al acceso anticipado de PostMorfi para Android"
+            aria-label={t.storeBadges.joinWaitlistAriaLabel}
             onClick={() => setOpen(true)}
           >
             {androidArtwork}
@@ -123,37 +126,37 @@ export function StoreBadges({ compact = false }: StoreBadgesProps) {
             aria-labelledby="waitlist-title"
             onClick={(event) => event.stopPropagation()}
           >
-            <button type="button" className="waitlist-close" aria-label="Cerrar" onClick={closeModal}>
+            <button type="button" className="waitlist-close" aria-label={t.storeBadges.waitlistCloseAriaLabel} onClick={closeModal}>
               <X aria-hidden="true" />
             </button>
             {status === 'sent' ? (
               <>
-                <h3>¡Listo!</h3>
-                <p>Guardamos tu email, te aviso apenas esté disponible PostMorfi para Android.</p>
+                <h3>{t.storeBadges.waitlistSuccessTitle}</h3>
+                <p>{t.storeBadges.waitlistSuccessText}</p>
               </>
             ) : (
               <>
-                <h3 id="waitlist-title">Sumate al acceso anticipado</h3>
-                <p>Dejá tu email y te aviso apenas esté disponible PostMorfi para Android.</p>
+                <h3 id="waitlist-title">{t.storeBadges.waitlistTitle}</h3>
+                <p>{t.storeBadges.waitlistText}</p>
                 <form onSubmit={handleWaitlistSubmit}>
-                  <label className="sr-only" htmlFor="android-waitlist-email">Tu email</label>
+                  <label className="sr-only" htmlFor="android-waitlist-email">{t.storeBadges.waitlistEmailLabel}</label>
                   <input
                     id="android-waitlist-email"
                     type="email"
                     required
                     autoFocus
-                    placeholder="tu@email.com"
+                    placeholder={t.storeBadges.waitlistEmailPlaceholder}
                     value={email}
                     onChange={(event) => setEmail(event.target.value)}
                     disabled={status === 'sending'}
                   />
                   <button type="submit" disabled={status === 'sending'}>
-                    {status === 'sending' ? 'Enviando…' : <>Avisarme <ArrowRight aria-hidden="true" /></>}
+                    {status === 'sending' ? t.storeBadges.waitlistSending : <>{t.storeBadges.waitlistNotifyMe} <ArrowRight aria-hidden="true" /></>}
                   </button>
                 </form>
                 {status === 'error' && (
                   <p className="waitlist-error">
-                    Hubo un error. Probá de nuevo o escribime directo a{' '}
+                    {t.storeBadges.waitlistErrorText}{' '}
                     <a href="mailto:ing.pgallino@gmail.com">ing.pgallino@gmail.com</a>.
                   </p>
                 )}
