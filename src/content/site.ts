@@ -75,7 +75,6 @@ type SiteContent = {
     metrics: { value: string; label: string }[]
     features: { number: string; title: string; text: string }[]
     areas: string[]
-    gallery: { src: string; alt: string }[]
   }
 }
 
@@ -255,11 +254,6 @@ const es: SiteContent = {
       { number: '04', title: 'Compartir', text: 'Comparar paladares y crear rankings con amigos.' },
     ],
     areas: ['Frontend', 'Backend', 'Infraestructura', 'Integraciones con APIs', 'Producto', 'Contenido y difusión'],
-    gallery: [
-      { src: '/images/postmorfi/hero-cafe-facade.webp', alt: 'Fachada de café utilizada en la experiencia de PostMorfi' },
-      { src: '/images/postmorfi/review-pasta-table.webp', alt: 'Plato de pasta fotografiado para una reseña de PostMorfi' },
-      { src: '/images/postmorfi/review-rigatoni.webp', alt: 'Rigatoni fotografiados para una reseña de PostMorfi' },
-    ],
   },
 }
 
@@ -439,11 +433,6 @@ const en: SiteContent = {
       { number: '04', title: 'Share', text: 'Compare tastes and create rankings with friends.' },
     ],
     areas: ['Frontend', 'Backend', 'Infrastructure', 'API integrations', 'Product', 'Content and outreach'],
-    gallery: [
-      { src: '/images/postmorfi/hero-cafe-facade.webp', alt: 'Café facade used in the PostMorfi experience' },
-      { src: '/images/postmorfi/review-pasta-table.webp', alt: 'Pasta dish photographed for a PostMorfi review' },
-      { src: '/images/postmorfi/review-rigatoni.webp', alt: 'Rigatoni photographed for a PostMorfi review' },
-    ],
   },
 }
 

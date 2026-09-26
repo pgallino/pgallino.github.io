@@ -80,8 +80,6 @@ const strings = {
       roleHeading: 'De la idea a producción.',
       roleCopyIntro:
         'Definí las decisiones de producto, iteré funcionalidades con feedback real de usuarios y gestioné también contenido, redes sociales y difusión. El trabajo técnico abarca las siguientes áreas confirmadas en mi CV:',
-      caseIndex04: '04 / Experiencia',
-      visualHeading: 'La comida es el centro; la interfaz, el marco.',
       ctaLive: 'El producto está en línea.',
       ctaHeading: 'Descubrí tu próxima comida.',
       ctaVisit: 'Visitar PostMorfi',
@@ -196,8 +194,6 @@ const strings = {
       roleHeading: 'From idea to production.',
       roleCopyIntro:
         'I made the product decisions, iterated on features with real user feedback, and also handled content, social media, and outreach. The technical work spans the following areas confirmed on my resume:',
-      caseIndex04: '04 / Experience',
-      visualHeading: 'The food is the centerpiece; the interface is the frame.',
       ctaLive: 'The product is live.',
       ctaHeading: 'Discover your next meal.',
       ctaVisit: 'Visit PostMorfi',

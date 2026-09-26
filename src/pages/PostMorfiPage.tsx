@@ -106,24 +106,6 @@ export function PostMorfiPage() {
         </Reveal>
       </section>
 
-      <section className="case-section visual-section" aria-labelledby="visual-title">
-        <Reveal>
-          <div className="case-section-heading">
-            <p className="case-index">{t.postMorfi.caseIndex04}</p>
-            <h2 id="visual-title">{t.postMorfi.visualHeading}</h2>
-          </div>
-        </Reveal>
-        <div className="case-gallery">
-          {postMorfi.gallery.map((image, index) => (
-            <Reveal key={image.src}>
-              <figure className={`case-image case-image-${index + 1}`}>
-                <img src={image.src} alt={image.alt} loading="lazy" />
-              </figure>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
       <Reveal>
         <section className="case-cta">
           <p>{t.postMorfi.ctaLive}</p>

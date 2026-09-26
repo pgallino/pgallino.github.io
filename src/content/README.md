@@ -9,7 +9,7 @@ Este directorio es la única fuente de contenido del portfolio. Los componentes 
 | Perfil | `personal` | `content/profile.json` |
 | Proyectos | `projects` | `content/projects/*.md` |
 | Trayectoria | `timeline` | `content/timeline/*.md` |
-| Galería | `gallery` | `content/gallery/*.md` + media |
+| Galería | _(sin usar)_ | `content/gallery/*.md` + media |
 | PostMorfi | `postMorfi` | `content/case-studies/postmorfi.md` |
 
 Un CMS Git puede escribir esos archivos mediante su propio flujo de autenticación y abrir commits o pull requests. El frontend debe seguir leyendo contenido versionado durante el build; nunca debe recibir tokens de GitHub ni permisos de escritura.
