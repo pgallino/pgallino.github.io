@@ -23,6 +23,8 @@ export function PhoneShowcase({ screenshots, variant = 'case' }: PhoneShowcasePr
   function handlePointerDown(event: ReactPointerEvent<HTMLUListElement>) {
     const track = trackRef.current
     if (!track || event.pointerType === 'touch') return
+    const withinContent = event.clientY - track.getBoundingClientRect().top <= track.clientHeight
+    if (!withinContent) return // clicked the scrollbar itself; let the browser handle it natively
     drag.current.active = true
     drag.current.startX = event.clientX
     drag.current.pointerX = event.clientX

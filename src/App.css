@@ -487,8 +487,6 @@ button.store-badge-link {
   outline: none;
   overflow-x: auto;
   overscroll-behavior-inline: contain;
-  scroll-padding-inline: 4px;
-  scroll-snap-type: x proximity;
   scroll-behavior: auto;
   scrollbar-color: var(--accent) #222923;
   scrollbar-width: thin;
@@ -499,8 +497,6 @@ button.store-badge-link {
 
 .phone-showcase__track:active { cursor: grabbing; }
 .phone-showcase__phone, .phone-showcase__phone img { -webkit-user-drag: none; }
-
-.phone-showcase__track li { scroll-snap-align: start; }
 
 .phone-showcase__phone {
   margin: 0;
@@ -677,11 +673,8 @@ button.store-badge-link {
   .phone-showcase__track {
     grid-auto-columns: min(72vw, 260px);
     gap: 14px;
-    scroll-padding-inline: 14px;
-    scroll-snap-type: x mandatory;
     padding: 18px 14px 28px;
   }
-  .phone-showcase__track li { scroll-snap-align: center; }
   .section-heading, .case-intro, .case-section-heading { grid-template-columns: 1fr; gap: 28px; }
   .section-heading { margin-bottom: 48px; }
   .projects-grid { grid-template-columns: 1fr; }

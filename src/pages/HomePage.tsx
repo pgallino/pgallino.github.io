@@ -201,7 +201,7 @@ export function HomePage() {
         <section className="contact-section" id="contacto" aria-labelledby="contact-title">
           <div>
             <p className="eyebrow"><span /> Contacto</p>
-            <h2 id="contact-title">¿Construimos algo que valga la pena?</h2>
+            <h2 id="contact-title">Contacto</h2>
           </div>
           <div className="contact-panel">
             <p>Estoy en Buenos Aires y abierto a conversar sobre productos, software y desafíos de ingeniería.</p>
