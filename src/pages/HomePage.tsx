@@ -53,20 +53,17 @@ export function HomePage() {
           </div>
         </div>
 
-        <div className="portrait-wrap" aria-label="Retrato de Pedro Gallino">
-          <div className="portrait-index" aria-hidden="true">01 / 05</div>
-          <img
-            src={personal.portrait}
-            alt="Pedro Gallino en su graduación"
-            width="460"
-            height="460"
-            fetchPriority="high"
-          />
-          <div className="portrait-caption">
-            <span>Ingeniería</span>
-            <span>Producto</span>
-            <span>Sistemas</span>
-          </div>
+        <div className="hero-timeline" aria-label="Resumen de trayectoria">
+          <img className="hero-timeline-avatar" src={personal.avatar} alt="Pedro Gallino" width="64" height="64" />
+          <ol>
+            {timeline.map((item) => (
+              <li key={item.title}>
+                <span className="hero-timeline-period">{item.period}</span>
+                <span className="hero-timeline-title">{item.title}</span>
+                <span className="hero-timeline-place">{item.place}</span>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 

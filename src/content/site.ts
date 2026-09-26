@@ -41,6 +41,7 @@ export const personal = {
   intro:
     'Ingeniero graduado de la UBA con experiencia práctica en productos web, sistemas distribuidos y arquitecturas escalables.',
   portrait: '/images/pedro-gallino-profile.webp',
+  avatar: '/images/pedro-gallino-avatar.webp',
   cv: {
     localPath: '/cv/pedro-gallino-cv.pdf',
     externalUrl: '',
