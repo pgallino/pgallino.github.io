@@ -164,6 +164,16 @@ const es: SiteContent = {
       stack: ['Ruby', 'Sinatra', 'PostgreSQL', 'Cucumber', 'RSpec'],
       repository: 'https://github.com/pgallino/turnero-api',
     },
+    {
+      slug: 'sisop',
+      title: 'SISOP',
+      eyebrow: 'Sistemas Operativos · 2023',
+      description:
+        'Tres trabajos grupales de sistemas operativos: una shell tipo bash, un scheduler sobre el kernel educativo JOS y un sistema de archivos propio con FUSE.',
+      impact: 'Implementación de cambio de contexto y planificación de procesos sobre un kernel real, además de un filesystem accesible con las syscalls estándar de Linux.',
+      stack: ['C', 'FUSE', 'Kernel JOS', 'Sistemas operativos'],
+      repository: 'https://github.com/pgallino/SISOP',
+    },
   ],
   timeline: [
     {
@@ -342,6 +352,16 @@ const en: SiteContent = {
       impact: 'Handles appointment overlap, holidays, no-show patient penalties, and authentication, with automated tests in Cucumber and RSpec.',
       stack: ['Ruby', 'Sinatra', 'PostgreSQL', 'Cucumber', 'RSpec'],
       repository: 'https://github.com/pgallino/turnero-api',
+    },
+    {
+      slug: 'sisop',
+      title: 'SISOP',
+      eyebrow: 'Operating Systems · 2023',
+      description:
+        'Three group assignments in operating systems: a bash-like shell, a scheduler built on the JOS educational kernel, and a custom filesystem with FUSE.',
+      impact: 'Implemented context switching and process scheduling on a real kernel, plus a filesystem accessible through standard Linux syscalls.',
+      stack: ['C', 'FUSE', 'JOS kernel', 'Operating systems'],
+      repository: 'https://github.com/pgallino/SISOP',
     },
   ],
   timeline: [
