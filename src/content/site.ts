@@ -66,7 +66,7 @@ type SiteContent = {
     logo: string
     stores: {
       ios: { href: string; status: string; label: string; badge: string }
-      android: { href: string; status: string; label: string; badge: string; waitlistAccessKey: string }
+      android: { href: string; status: string; label: string; badge: string }
     }
     screenshots: PhoneScreenshot[]
     summary: string
@@ -232,11 +232,10 @@ const es: SiteContent = {
         badge: '/images/store-badges/app-store.svg',
       },
       android: {
-        href: '',
-        status: 'Acceso anticipado',
-        label: 'Android',
+        href: 'https://play.google.com/store/apps/details?id=com.postmorfi.app',
+        status: 'Disponible en',
+        label: 'Google Play',
         badge: '/images/store-badges/google-play-trimmed.png',
-        waitlistAccessKey: 'db2acda6-87cd-46ef-ba60-8e5d93e456e3',
       },
     },
     screenshots: [
@@ -421,11 +420,10 @@ const en: SiteContent = {
         badge: '/images/store-badges/app-store.svg',
       },
       android: {
-        href: '',
-        status: 'Early access',
-        label: 'Android',
+        href: 'https://play.google.com/store/apps/details?id=com.postmorfi.app',
+        status: 'Available on',
+        label: 'Google Play',
         badge: '/images/store-badges/google-play-trimmed.png',
-        waitlistAccessKey: 'db2acda6-87cd-46ef-ba60-8e5d93e456e3',
       },
     },
     screenshots: [
